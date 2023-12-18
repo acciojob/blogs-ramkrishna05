@@ -1,43 +1,39 @@
 package com.driver.models;
 
-import org.apache.catalina.User;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "blog_info")
-
-public class Blog {
+@Table(name = "BlogInfo")
+public class Blog{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String title;
-    String content;
+    private int id;
+    private String title;
+    private String content;
+
     @CreationTimestamp
-    Date date;
+    private Date pubDate;
 
     @ManyToOne
     @JoinColumn
-    User user;
+    private User user;
 
-    @OneToMany(mappedBy = "image",cascade = CascadeType.ALL)
-    List<Image>imageList=new ArrayList<>();
-
-    public Blog(int id, String title, String content, Date date, User user, List<Image> imageList) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.date = date;
-        this.user = user;
-        this.imageList = imageList;
-    }
+    @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
+    private List<Image> imageList=new ArrayList<>();
 
     public Blog() {
+    }
+
+    public Blog(String title, String content, Date pubDate, User user) {
+        this.title = title;
+        this.content = content;
+        this.pubDate = pubDate;
+        this.user = user;
     }
 
     public int getId() {
@@ -64,12 +60,12 @@ public class Blog {
         this.content = content;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getPubDate() {
+        return pubDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setPubDate(Date pubDate) {
+        this.pubDate = pubDate;
     }
 
     public User getUser() {
