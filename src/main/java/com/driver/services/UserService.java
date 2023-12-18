@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -15,14 +19,30 @@ public class UserService {
 
     public User createUser(String username, String password){
 
+         User user=new User();
+         user.setUserName(username);
+         user.setPassword(password);
+         user.setFirstName("test");
+         user.setLastName("test");
+         userRepository3.save(user);
+         return user;
+
+
+
 
     }
 
     public void deleteUser(int userId){
+        userRepository3.deleteById(userId);
 
     }
 
     public User updateUser(Integer id, String password){
+        User user=userRepository3.findById(id).get();
+        user.setPassword(password);
+        userRepository3.save(user);
+        return user;
+
 
     }
 }
